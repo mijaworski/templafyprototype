@@ -153,7 +153,9 @@ h1, h2, h3, .mont { font-family: var(--f-title); }
 .clear-all-btn:hover { color: var(--c-t1); }
 .col-sw { position: relative; flex-shrink: 0; }
 .col-si { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--c-t4); }
-.col-search { padding: 12px 14px 12px 36px; border: none; border-bottom: 1px solid var(--c-border); font-family: var(--f-body); font-size: 14px; color: var(--c-t1); background: var(--c-white); outline: none; width: 100%; transition: background var(--t), box-shadow var(--t); }
+.col-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-accent) !important; padding: 0; transition: opacity var(--t); }
+.col-clear:hover { opacity: 0.7; color: var(--c-accent) !important; }
+.col-search { padding: 12px 36px 12px 36px; border: none; border-bottom: 1px solid var(--c-border); font-family: var(--f-body); font-size: 14px; color: var(--c-t1); background: var(--c-white); outline: none; width: 100%; transition: background var(--t), box-shadow var(--t); }
 .col-search:focus { background: var(--c-accent-sub); box-shadow: inset 0 -2px 0 var(--c-accent); }
 .col-search::placeholder { color: var(--c-t4); }
 .col-items { overflow-y: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; }
@@ -181,7 +183,7 @@ h1, h2, h3, .mont { font-family: var(--f-title); }
 .cb.undrawing svg polyline { stroke-dasharray: 14; animation: cbUndraw 180ms ease-in forwards; }
 .row-rm { width: 22px; height: 22px; border-radius: 4px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-t3); opacity: 0; transition: opacity var(--t), background var(--t), color var(--t); flex-shrink: 0; padding: 0; }
 .row:hover .row-rm { opacity: 1; }
-.row-rm:hover { background: var(--c-danger-sub); color: var(--c-danger); }
+.row-rm:hover { background: var(--c-surface-hover); color: var(--c-t2); }
 .empty { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 8px; padding: 24px; text-align: center; }
 #leftEmptyEl { display: none; }
 .empty-icon-blue { stroke: #93c5fd; }
@@ -390,7 +392,10 @@ h1, h2, h3, .mont { font-family: var(--f-title); }
             <div class="col-hd"><span class="col-title">All groups</span></div>
             <div class="col-sw">
               <span class="col-si"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-              <input class="col-search" placeholder="Search groups…" oninput="fLeft(this.value)" id="lSearch">
+              <input class="col-search" placeholder="Search groups…" oninput="fLeft(this.value); toggleClear('lClear', this.value)" id="lSearch">
+              <button class="col-clear" id="lClear" style="display:none" onclick="document.getElementById('lSearch').value=''; fLeft(''); toggleClear('lClear','')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </div>
             <div class="col-items" id="leftList">
               <div class="empty" id="leftEmptyEl">
@@ -408,7 +413,10 @@ h1, h2, h3, .mont { font-family: var(--f-title); }
             </div>
             <div class="col-sw">
               <span class="col-si"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-              <input class="col-search" placeholder="Search access list…" oninput="fRight(this.value)" id="rSearch">
+              <input class="col-search" placeholder="Search access list…" oninput="fRight(this.value); toggleClear('rClear', this.value)" id="rSearch">
+              <button class="col-clear" id="rClear" style="display:none" onclick="document.getElementById('rSearch').value=''; fRight(''); toggleClear('rClear','')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </div>
             <div class="col-items" id="rightList">
               <div class="empty" id="emptyEl">
@@ -608,6 +616,10 @@ function clearAll() {
   syncSaveBtn();
 }
 
+function toggleClear(id, val) {
+  document.getElementById(id).style.display = val ? 'flex' : 'none';
+}
+
 function highlightMatch(text, query) {
   if (!query) return text;
   const idx = text.toLowerCase().indexOf(query.toLowerCase());
@@ -665,6 +677,8 @@ function openModal(id){
   lF='';rF='';
   document.getElementById('lSearch').value='';
   document.getElementById('rSearch').value='';
+  document.getElementById('lClear').style.display='none';
+  document.getElementById('rClear').style.display='none';
   document.getElementById('miName').textContent=m.name;
   document.getElementById('miDesc').textContent=m.desc;
   document.getElementById('cName').textContent=m.name;
