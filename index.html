@@ -102,12 +102,12 @@ h1, h2, h3, .mont { font-family: var(--f-title); }
 .overlay.visible .modal { transform: scale(1) translateY(0); opacity: 1; }
 
 /* header */
-.m-header { padding: 28px 32px 24px; border-bottom: 1px solid var(--c-border); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-shrink: 0; }
+.m-header { padding: 28px 32px 24px; border-bottom: 1px solid var(--c-border); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-shrink: 0; }
 .mh-left { display: flex; flex-direction: column; gap: 8px; }
-.mh-title-row { display: flex; align-items: center; gap: 12px; }
+.mh-title-row { display: flex; align-items: center; gap: 8px; }
 .mh-title { font-family: var(--f-title); font-size: 19px; font-weight: 700; color: var(--c-t1); letter-spacing: -0.01em; }
 .mh-sub   { font-family: var(--f-body); font-size: 14px; color: var(--c-t2); }
-.mh-right { display: flex; align-items: center; flex-shrink: 0; margin-top: 2px; }
+.mh-right { display: flex; align-items: center; flex-shrink: 0; }
 .icon-btn { width: 30px; height: 30px; border-radius: 6px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-t3); transition: background var(--t), color var(--t); padding: 0; flex-shrink: 0; }
 .icon-btn:hover { background: var(--c-hover); color: var(--c-t1); }
 .help-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-t3); transition: color var(--t); padding: 0; flex-shrink: 0; }
@@ -361,7 +361,6 @@ h1, h2, h3, .mont { font-family: var(--f-title); }
           <span class="mh-title mont" id="modalTitle">ProductivityPlus</span>
           <div class="badge active" id="headerBadge"><span class="bdot"></span><span id="headerBadgeText">Active</span></div>
         </div>
-        <div class="mh-sub">Manage access for this module</div>
       </div>
       <div class="mh-right">
         <button class="icon-btn" onclick="closeModal()" title="Close">
